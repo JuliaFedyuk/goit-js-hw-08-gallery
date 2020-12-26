@@ -44,23 +44,20 @@ function openBigImage(event) {
   bigImg.setAttribute("src", event.target.dataset.source);
 }
 
-function closeLightBoxByBtn(event) {
+function closeLightBoxByBtn() {
   onCloseLightbox();
   clearCashMemory();
-  console.log(event.target);
 }
 
 function closeLightBoxByEsc(event) {
   if (event.code === "Escape") {
-    onCloseLightbox();
-    clearCashMemory();
+    closeLightBoxByBtn();
   }
 }
 
 function closeLightBoxByClick(event) {
   if (event.target === event.currentTarget) {
-    onCloseLightbox();
-    clearCashMemory();
+    closeLightBoxByBtn();
   }
 }
 
