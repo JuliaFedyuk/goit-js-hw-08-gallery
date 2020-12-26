@@ -46,24 +46,30 @@ function openBigImage(event) {
 
 function closeLightBoxByBtn(event) {
   onCloseLightbox();
-  bigImg.setAttribute("src", "");
+  clearCashMemory();
   console.log(event.target);
 }
 
 function closeLightBoxByEsc(event) {
   if (event.code === "Escape") {
     onCloseLightbox();
+    clearCashMemory();
   }
 }
 
 function closeLightBoxByClick(event) {
   if (event.target === event.currentTarget) {
     onCloseLightbox();
+    clearCashMemory();
   }
 }
 
 function onCloseLightbox() {
   lightBoxRef.classList.remove("is-open");
+}
+
+function clearCashMemory() {
+  bigImg.setAttribute("src", "");
 }
 
 galleryList.addEventListener("click", galleryListHandler);
