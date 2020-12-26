@@ -25,43 +25,53 @@ const liRefs = galleryArray.map(({ ...galleryArray }) => {
 
 galleryList.append(...liRefs);
 
+const lightBoxRef = document.querySelector(".js-lightbox");
+const bigImg = document.querySelector(".lightbox__image");
+const closeLightboxBtn = document.querySelector(
+  'button[data-action="close-lightbox"]'
+);
+const lightboxOverley = document.querySelector(".lightbox__overlay");
+
 function galleryListHandler(event) {
   event.preventDefault();
-
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  const lightBoxRef = document.querySelector(".js-lightbox");
   lightBoxRef.classList.add("is-open");
+}
 
-  const bigImg = document.querySelector(".lightbox__image");
+function openBigImage(event) {
   bigImg.setAttribute("src", event.target.dataset.source);
+}
 
-  const closeLightboxBtn = document.querySelector(
-    'button[data-action="close-lightbox"]'
-  );
+function closeLightBoxByBtn(event) {
+  onCloseLightbox();
+  bigImg.setAttribute("src", "");
+  console.log(event.target);
+}
 
-  function onCloseLightbox() {
-    lightBoxRef.classList.remove("is-open");
-  }
-
-  closeLightboxBtn.addEventListener("click", () => {
+function closeLightBoxByEsc(event) {
+  if (event.code === "Escape") {
     onCloseLightbox();
-    bigImg.setAttribute("src", "");
-  });
+  }
+}
 
-  window.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      onCloseLightbox();
-    }
-  });
+function closeLightBoxByClick(event) {
+  if (event.target === event.currentTarget) {
+    onCloseLightbox();
+  }
+}
 
-  const lightboxOverley = document.querySelector(".lightbox__overlay");
-  lightboxOverley.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      onCloseLightbox();
-    }
-  });
+function onCloseLightbox() {
+  lightBoxRef.classList.remove("is-open");
 }
 
 galleryList.addEventListener("click", galleryListHandler);
+
+galleryList.addEventListener("click", openBigImage);
+
+closeLightboxBtn.addEventListener("click", closeLightBoxByBtn);
+
+window.addEventListener("keydown", closeLightBoxByEsc);
+
+lightboxOverley.addEventListener("click", closeLightBoxByClick);
