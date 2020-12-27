@@ -38,20 +38,19 @@ function galleryListHandler(event) {
     return;
   }
   lightBoxRef.classList.add("is-open");
-}
-
-function openBigImage(event) {
   bigImg.setAttribute("src", event.target.dataset.source);
+  window.addEventListener("keydown", closeLightBoxByEsc);
 }
 
 function closeLightBoxByBtn() {
-  onCloseLightbox();
-  clearCashMemory();
+  lightBoxRef.classList.remove("is-open");
+  bigImg.setAttribute("src", "");
 }
 
 function closeLightBoxByEsc(event) {
   if (event.code === "Escape") {
     closeLightBoxByBtn();
+    window.removeEventListener("keydown", closeLightBoxByEsc);
   }
 }
 
@@ -61,20 +60,8 @@ function closeLightBoxByClick(event) {
   }
 }
 
-function onCloseLightbox() {
-  lightBoxRef.classList.remove("is-open");
-}
-
-function clearCashMemory() {
-  bigImg.setAttribute("src", "");
-}
-
 galleryList.addEventListener("click", galleryListHandler);
 
-galleryList.addEventListener("click", openBigImage);
-
 closeLightboxBtn.addEventListener("click", closeLightBoxByBtn);
-
-window.addEventListener("keydown", closeLightBoxByEsc);
 
 lightboxOverley.addEventListener("click", closeLightBoxByClick);
