@@ -40,7 +40,7 @@ function galleryListHandler(event) {
   lightBoxRef.classList.add("is-open");
   bigImg.setAttribute("src", event.target.dataset.source);
   window.addEventListener("keydown", closeLightBoxByEsc);
-  lightboxOverley.addEventListener("click", closeLightBoxByClick);
+  lightboxOverley.addEventListener("click", closeLightBoxByBtn);
   closeLightboxBtn.addEventListener("click", closeLightBoxByBtn);
 }
 
@@ -48,18 +48,12 @@ function closeLightBoxByBtn() {
   lightBoxRef.classList.remove("is-open");
   bigImg.setAttribute("src", "");
   window.removeEventListener("keydown", closeLightBoxByEsc);
-  lightboxOverley.removeEventListener("click", closeLightBoxByClick);
+  lightboxOverley.removeEventListener("click", closeLightBoxByBtn);
   closeLightboxBtn.removeEventListener("click", closeLightBoxByBtn);
 }
 
 function closeLightBoxByEsc(event) {
   if (event.code === "Escape") {
-    closeLightBoxByBtn();
-  }
-}
-
-function closeLightBoxByClick(event) {
-  if (event.target === event.currentTarget) {
     closeLightBoxByBtn();
   }
 }
